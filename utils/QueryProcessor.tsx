@@ -15,10 +15,10 @@ export default function QueryProcessor(query: string): string {
     return "evelynlu";
   }
 
-  const match = query.match(/what\s+is\s+(-?\d+)\s*\+\s*(-?\d+)\??/i);
-  if (match) {
-    const x = parseFloat(match[1]);
-    const y = parseFloat(match[2]);
+  const addMatch = query.match(/what\s+is\s+(-?\d+)\s*(?:\+|plus)\s*(-?\d+)\??/i);
+  if (addMatch) {
+    const x = parseFloat(addMatch[1]);
+    const y = parseFloat(addMatch[2]);
     return (x + y).toString();
   }
 
