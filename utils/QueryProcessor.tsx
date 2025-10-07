@@ -14,12 +14,26 @@ export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("andrew id")) {
     return "evelynlu";
   }
-  
+
   const match = query.match(/what\s+is\s+(-?\d+)\s*\+\s*(-?\d+)\??/i);
   if (match) {
     const x = parseFloat(match[1]);
     const y = parseFloat(match[2]);
     return (x + y).toString();
+  }
+
+  const largestMatch = query.match(
+    /which\s+of\s+the\s+following\s+numbers\s+is\s+the\s+largest[:\s]+([\d,\s-]+)/i
+  );
+  if (largestMatch) {
+    const nums = largestMatch[1]
+      .split(/[,\s]+/) // split by commas or spaces
+      .filter(Boolean) // remove empty strings
+      .map(parseFloat);
+
+    if (nums.length > 0 && nums.every((n) => !isNaN(n))) {
+      return Math.max(...nums).toString();
+    }
   }
 
   return "";
